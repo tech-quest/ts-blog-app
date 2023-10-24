@@ -21,7 +21,7 @@ export default function ArticleCreatePage() {
         <MyCreateArticleForm isSubmitting={isCreating} onSubmit={handleSubmit} />
         <div>
           <MyButton asChild>
-            <Link href="/">一覧に戻る</Link>
+            <Link href="/admin">一覧に戻る</Link>
           </MyButton>
         </div>
       </MyAdminArticleContainer>
