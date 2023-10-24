@@ -13,11 +13,13 @@ type ApiResponseData = {
   updatedAt: string;
 };
 
-export const useFindArticleApi = (id: string) => {
+export const useFindArticleApi = (id: string, isAdmin?: boolean) => {
   const [article, setArticle] = useState<ArticleDetailUiModel | null>(null);
 
+  const baseUrl = isAdmin ? 'http://localhost:8000/admin' : 'http://localhost:8000';
+
   const { data, error, studyError, isLoading, query } = useGetFetch<ApiResponseData>(
-    `http://localhost:8000/articles/detail/${id}`,
+    `${baseUrl}/articles/detail/${id}`,
   );
 
   useEffect(() => {

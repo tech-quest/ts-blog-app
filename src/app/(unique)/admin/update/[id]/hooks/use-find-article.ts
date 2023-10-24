@@ -6,7 +6,7 @@ import { useFindArticleApi } from '~/features/article/hooks/use-find-article-api
 export const useFindArticle = (id: string) => {
   const [defaultValues, setDefaultValues] = useState<DefaultValues | null>();
 
-  const { article, error, studyError, isLoading, query } = useFindArticleApi(id);
+  const { article, error, studyError, isLoading, query } = useFindArticleApi(id, true);
 
   useEffect(() => {
     query();

@@ -26,9 +26,9 @@ const initPrisma = () => {
 
 const prisma = initPrisma();
 
-// APIのURL http://localhost:8000/articles
-// 作成が完了したら http://localhost:3000 にアクセスして確認してみましょう！
-app.get('/articles', async (req, res) => {
+// APIのURL http://localhost:8000/admin/articles
+// 作成が完了したら http://localhost:3000/admin にアクセスして確認してみましょう！
+app.get('/admin/articles', async (req, res) => {
   const records = await prisma.article.findMany();
 
   const sorted = sortArticlesByNewestFirst(records);
@@ -48,10 +48,10 @@ app.get('/articles', async (req, res) => {
   res.json({ data: articles });
 });
 
-// APIのURL http://localhost:8000/articles/detail/1
-// 存在しないIDを指定した場合 http://localhost:8000/articles/detail/a -> 404 Not Found
-// 作成が完了したら http://localhost:3000/detail/1 にアクセスして確認してみましょう！
-app.get('/articles/detail/:id', async (req, res) => {
+// APIのURL http://localhost:8000/admin/articles/detail/1
+// 存在しないIDを指定した場合 http://localhost:8000/admin/articles/detail/a -> 404 Not Found
+// 作成が完了したら http://localhost:3000/admin/update/1 にアクセスして確認してみましょう！
+app.get('/admin/articles/detail/:id', async (req, res) => {
   const id = Number(req.params.id);
   if (Number.isNaN(id)) {
     res.status(404).json({ error: { message: 'ID 形式が不正な形式となっています' } });
@@ -77,9 +77,9 @@ app.get('/articles/detail/:id', async (req, res) => {
   res.json({ data: article });
 });
 
-// APIのURL http://localhost:8000/articles/create
-// 作成が完了したら http://localhost:3000/create にアクセスして確認してみましょう！
-app.post('/articles/create', async (req, res) => {
+// APIのURL http://localhost:8000/admin/articles/create
+// 作成が完了したら http://localhost:3000/admin/create にアクセスして確認してみましょう！
+app.post('/admin/articles/create', async (req, res) => {
   const { title, content, category, status } = req.body;
 
   const requiredMessage = '未入力の内容があります';
@@ -109,9 +109,9 @@ app.post('/articles/create', async (req, res) => {
   res.json({ data: { id: record.id.toString(10) } });
 });
 
-// APIのURL http://localhost:8000/articles/update
-// 作成が完了したら http://localhost:3000/update/1 にアクセスして確認してみましょう！
-app.post('/articles/update', async (req, res) => {
+// APIのURL http://localhost:8000/admin/articles/update
+// 作成が完了したら http://localhost:3000/admin/update/1 にアクセスして確認してみましょう！
+app.post('/admin/articles/update', async (req, res) => {
   const { articleId, title, content, category, status } = req.body;
 
   const id = Number(articleId);
@@ -151,8 +151,8 @@ app.post('/articles/update', async (req, res) => {
   }
 });
 
-// APIのURL http://localhost:8000/articles/delete
-// 作成が完了したら http://localhost:3000/ などの削除ボタンをクリックしてみよう
+// APIのURL http://localhost:8000/admin/articles/delete
+// 作成が完了したら http://localhost:3000/admin などの削除ボタンをクリックしてみよう
 app.post('/articles/delete', async (req, res) => {
   const { articleId } = req.body;
 
@@ -169,6 +169,66 @@ app.post('/articles/delete', async (req, res) => {
   } catch {
     res.status(500).json({ error: { message: 'データベース操作に失敗しました。' } });
   }
+});
+
+// APIのURL http://localhost:8000/articles
+// 作成が完了したら http://localhost:3000 にアクセスして確認してみましょう！
+app.get('/articles', async (req, res) => {
+  const records = await prisma.article.findMany();
+
+  const sorted = sortArticlesByNewestFirst(records);
+
+  const articles = sorted.map((record) => {
+    return {
+      id: record.id,
+      title: record.title,
+      content: record.content,
+      category: record.category,
+      status: record.status,
+      createdAt: formatDateInJa(record.createdAt),
+      updatedAt: formatDateInJa(record.updatedAt),
+    };
+  });
+
+  // Memo: ユーザーには公開されている記事のみを返す
+  const published = articles.filter((article) => article.status === '公開');
+
+  res.json({ data: published });
+});
+
+// APIのURL http://localhost:8000/articles/detail/1
+// 存在しないIDを指定した場合 http://localhost:8000/articles/detail/a -> 404 Not Found
+// 作成が完了したら http://localhost:3000/detail/1 にアクセスして確認してみましょう！
+app.get('/articles/detail/:id', async (req, res) => {
+  const id = Number(req.params.id);
+  if (Number.isNaN(id)) {
+    res.status(404).json({ error: { message: 'ID 形式が不正な形式となっています' } });
+    return;
+  }
+
+  const record = await prisma.article.findUnique({ where: { id } });
+  if (record === null) {
+    res.status(404).json({ error: { message: '記事が見つかりませんでした' } });
+    return;
+  }
+
+  // Memo: 公開されていない記事は 404 Not Found 扱いにする
+  if (record.status !== '公開') {
+    res.status(404).json({ error: { message: '記事が見つかりませんでした' } });
+    return;
+  }
+
+  const article = {
+    id: record.id,
+    title: record.title,
+    content: record.content,
+    category: record.category,
+    status: record.status,
+    createdAt: formatDateInJa(record.createdAt),
+    updatedAt: formatDateInJa(record.updatedAt),
+  };
+
+  res.json({ data: article });
 });
 
 const sortArticlesByNewestFirst = (articles: Article[]) => {

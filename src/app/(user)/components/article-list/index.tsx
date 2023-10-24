@@ -1,6 +1,10 @@
 import Link from 'next/link';
 
+import lifeImage from '~/app/(user)/assets/images/picture-article-life.jpg';
+import programmingImage from '~/app/(user)/assets/images/picture-article-programming.jpg';
 import { MyButton } from '~/components/elements/buttons/button';
+import { MyChip } from '~/components/elements/chips/chip';
+import { MyFluidImage } from '~/components/elements/images/fluid-image';
 import { ArticleUiModel } from '~/features/article/ui-models/article';
 
 import styles from './styles.module.css';
@@ -17,31 +21,27 @@ export const MyArticleList = ({ articles, onClickDelete, isDeleting }: Props) =>
   }
 
   return (
-    <ul className={styles.root}>
-      {articles.map((article) => (
-        <li key={article.id} className={styles.article}>
-          <div className={styles.body}>
-            <div className={styles.sub}>
-              <div className={styles.datetime}>{article.createdAt}</div>
-            </div>
-            <Link href={`/detail/${article.id}`} className={styles.content}>
-              {article.title}
+    <div className={styles.root}>
+      {articles.map((article) => {
+        const image = article.category === 'プログラミング' ? programmingImage : lifeImage;
+        const chipColor = article.category === 'プログラミング' ? 'primary' : 'secondary';
+        return (
+          <article key={article.id} className={styles.article}>
+            <Link href={`/detail/${article.id}`} className={styles.link}>
+              <div className={styles.body}>
+                <h2>{article.title}</h2>
+                <div className={styles.tags}>
+                  <MyChip label={article.category} color={chipColor} />
+                </div>
+                <div className={styles.datetime}>{article.createdAt}</div>
+              </div>
+              <figure className={styles.image}>
+                <MyFluidImage src={image} />
+              </figure>
             </Link>
-          </div>
-          <div className={styles.actions}>
-            <div>
-              <MyButton color="secondary" size="small" asChild>
-                <a href={`/update/${article.id}`}>編集</a>
-              </MyButton>
-            </div>
-            <div>
-              <MyButton size="small" onClick={() => onClickDelete(article.id)} disabled={isDeleting}>
-                {isDeleting ? '削除中' : '削除'}
-              </MyButton>
-            </div>
-          </div>
-        </li>
-      ))}
-    </ul>
+          </article>
+        );
+      })}
+    </div>
   );
 };

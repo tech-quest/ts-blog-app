@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { useFetchArticlesApi } from '~/features/article/hooks/use-fetch-articles-api';
 
 export const useFetchArticles = () => {
-  const { articles, error, studyError, isLoading, query } = useFetchArticlesApi();
+  const { articles, error, studyError, isLoading, query } = useFetchArticlesApi(true);
 
   useEffect(() => {
     query();

@@ -150,6 +150,7 @@ template {
 /*----- Initialize -----*/
 /* variables */
 :root {
+  --width-content: 1680px;
   --theme-background: 255, 255, 255;
   --theme-foreground: 33, 43, 54;
   --theme-contrast: 255, 255, 255;
@@ -169,6 +170,8 @@ template {
 
   --font-gothic: Roboto, 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Arial, sans-serif,
     Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', system-ui, sans-serif;
+  --font-serif: Georgia, 'Hiragino Mincho ProN', 'ヒラギノ明朝 ProN', 'Yu Mincho', '游明朝', 'ＭＳ Ｐ明朝', 'MS PMincho',
+    system-ui, serif;
 
   --line-height-normal: 1.6;
   --line-height-heading: 1.2;

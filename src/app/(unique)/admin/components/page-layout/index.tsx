@@ -1,3 +1,5 @@
+import { MyContainer } from '~/features/app/components/container';
+
 import styles from './styles.module.css';
 
 type Props = {
@@ -10,9 +12,9 @@ export const MyPageLayout = ({ children }: Props) => {
       <header id="masthead" className={styles.header}>
         <div className={styles.logo}>My Blog 管理画面</div>
       </header>
-      <main id="main" className={styles.main}>
-        {children}
-      </main>
+      <MyContainer id="main" asChild>
+        <main>{children}</main>
+      </MyContainer>
     </div>
   );
 };
