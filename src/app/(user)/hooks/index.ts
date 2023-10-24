@@ -1,14 +1,10 @@
-import { useDeleteArticle } from './use-delete-article';
 import { useFetchArticles } from './use-fetch-articles';
+import { useTabs } from './useTabs';
 
 export const useHooks = () => {
-  const { articles, fetchError, fetchStudyError, isLoading, refetch } = useFetchArticles();
-  const { deleteError, deleteStudyError, isDeleting, deleteArticle } = useDeleteArticle();
+  const { articles, fetchError, fetchStudyError, isLoading } = useFetchArticles();
 
-  const handleDelete = async (id: string) => {
-    await deleteArticle({ articleId: id });
-    await refetch();
-  };
+  const { activeTab, handleTabChange, tabItems } = useTabs();
 
-  return { articles, fetchError, fetchStudyError, isLoading, deleteError, deleteStudyError, isDeleting, handleDelete };
+  return { articles, fetchError, fetchStudyError, isLoading, activeTab, handleTabChange, tabItems };
 };

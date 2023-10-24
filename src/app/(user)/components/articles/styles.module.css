@@ -1,8 +1,17 @@
 .root {
+  margin: 2rem 0;
+}
+.root > *:first-child {
+  margin-top: 0;
+}
+.root > *:last-child {
+  margin-bottom: 0;
+}
+
+.articles {
   display: grid;
   gap: 2rem;
   grid-template-columns: repeat(auto-fill, minmax(560px, 1fr));
-  margin: 2rem 0;
   padding: 0;
   list-style: none;
 }
@@ -10,6 +19,7 @@
   position: relative;
   padding-bottom: 5rem;
 }
+
 .link {
   color: rgb(var(--theme-foreground));
 }
@@ -19,6 +29,7 @@
 .link:hover .image > img {
   transform: scale(1.1);
 }
+
 .body {
   position: absolute;
   right: 0;
@@ -49,6 +60,7 @@
 .body > *:last-child {
   margin-bottom: 0;
 }
+
 .tags {
   display: flex;
   gap: 0.5rem;

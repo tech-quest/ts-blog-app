@@ -1,21 +1,18 @@
 'use client';
 
-import Link from 'next/link';
-
-import { MyButton } from '~/components/elements/buttons/button';
 import { MyJumbotron } from '~/components/elements/images/jumbotron';
 import { MyAlertMessage } from '~/components/surface/dialogs/alert-message';
+import { MyTabs } from '~/components/surface/navigations/tabs';
 import { MyContainer } from '~/features/app/components/container';
 import { MyPageContainer } from '~/features/app/components/page-container';
 import { MyStudyAlert } from '~/features/app/components/study-alert';
 
 import heroImage from './assets/images/picture-hero-image.jpg';
-import { MyArticleList } from './components/article-list';
+import { MyArticles } from './components/articles';
 import { useHooks } from './hooks';
 
 export default function HomePage() {
-  const { articles, fetchError, fetchStudyError, isLoading, deleteError, deleteStudyError, isDeleting, handleDelete } =
-    useHooks();
+  const { articles, fetchError, fetchStudyError, isLoading, activeTab, handleTabChange, tabItems } = useHooks();
 
   return (
     <MyPageContainer>
@@ -25,7 +22,10 @@ export default function HomePage() {
         {isLoading ? (
           <div>読み込み中...</div>
         ) : (
-          <MyArticleList articles={articles} onClickDelete={handleDelete} isDeleting={isDeleting} />
+          <MyArticles
+            articles={articles}
+            tabsProps={{ items: tabItems, value: activeTab, onChange: handleTabChange }}
+          />
         )}
         {fetchStudyError && (
           <MyStudyAlert

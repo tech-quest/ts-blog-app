@@ -13,6 +13,9 @@ export const MyPageLayout = ({ children }: Props) => {
       <main id="main" className={styles.main}>
         {children}
       </main>
+      <footer id="footer" className={styles.footer}>
+        <small>Dummy blog site presented by TECH QUEST</small>
+      </footer>
     </div>
   );
 };

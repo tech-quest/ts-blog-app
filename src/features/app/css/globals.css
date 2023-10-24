@@ -167,6 +167,7 @@ template {
   --theme-warning-dark: 255, 111, 0;
   --theme-gray: 145, 158, 171;
   --theme-gray-surface: 244, 246, 248;
+  --theme-accent: 255, 177, 27;
 
   --font-gothic: Roboto, 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'ヒラギノ角ゴ ProN W3', Arial, sans-serif,
     Meiryo, Osaka, 'ＭＳ Ｐゴシック', 'MS PGothic', system-ui, sans-serif;

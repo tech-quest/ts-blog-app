@@ -28,3 +28,10 @@
 .main > *:last-child {
   margin-bottom: 0;
 }
+
+.footer {
+  margin: 8rem 0 0;
+  padding: 3rem;
+  border-top: 1px solid rgb(var(--theme-gray));
+  text-align: center;
+}
