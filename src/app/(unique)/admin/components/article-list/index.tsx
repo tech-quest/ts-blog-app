@@ -1,6 +1,7 @@
 import Link from 'next/link';
 
 import { MyButton } from '~/components/elements/buttons/button';
+import { MyChip } from '~/components/elements/chips/chip';
 import { ArticleUiModel } from '~/features/article/ui-models/article';
 
 import styles from './styles.module.css';
@@ -22,6 +23,7 @@ export const MyArticleList = ({ articles, onClickDelete, isDeleting }: Props) =>
         <li key={article.id} className={styles.article}>
           <div className={styles.body}>
             <div className={styles.sub}>
+              {article.status === '下書き' && <MyChip color="secondary" label={article.status}></MyChip>}
               <div className={styles.datetime}>{article.createdAt}</div>
             </div>
             <Link href={`/admin/update/${article.id}`} className={styles.content}>
