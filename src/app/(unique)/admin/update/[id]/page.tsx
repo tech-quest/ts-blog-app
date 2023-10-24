@@ -3,7 +3,7 @@
 import { MyAlertMessage } from '~/components/surface/dialogs/alert-message';
 import { MyPageContainer } from '~/features/app/components/page-container';
 import { MyStudyAlert } from '~/features/app/components/study-alert';
-import { MyArticleContainer } from '~/features/article/components/article-container';
+import { MyAdminArticleContainer } from '~/features/article/components/admin-article-container';
 
 import { MyArticleActions } from './components/article-actions';
 import { MyUpdateArticleForm } from './components/update-article-form';
@@ -32,7 +32,7 @@ export default function ArticleUpdatePage({ params }: { params: Params }) {
   return (
     <MyPageContainer>
       <h1>メモ編集</h1>
-      <MyArticleContainer>
+      <MyAdminArticleContainer>
         {findError && <MyAlertMessage color="error">{findError.message}</MyAlertMessage>}
         {updateError && <MyAlertMessage color="error">{updateError.message}</MyAlertMessage>}
         {deleteError && <MyAlertMessage color="error">{deleteError.message}</MyAlertMessage>}
@@ -41,7 +41,7 @@ export default function ArticleUpdatePage({ params }: { params: Params }) {
           <MyUpdateArticleForm defaultValues={defaultValues} isSubmitting={isUpdating} onSubmit={handleSubmit} />
         )}
         <MyArticleActions onClickDelete={handleDelete} isDeleting={isDeleting} />
-      </MyArticleContainer>
+      </MyAdminArticleContainer>
       {findStudyError && (
         <MyStudyAlert
           message={findStudyError.message}

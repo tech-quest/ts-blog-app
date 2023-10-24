@@ -4,6 +4,6 @@ type Props = {
   children: React.ReactNode;
 };
 
-export const MyArticleContainer = ({ children }: Props) => {
+export const MyAdminArticleContainer = ({ children }: Props) => {
   return <div className={styles.root}>{children}</div>;
 };

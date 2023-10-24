@@ -1,12 +1,15 @@
 'use client';
 
+import lifeImage from '~/app/(user)/assets/images/picture-article-life.jpg';
+import programmingImage from '~/app/(user)/assets/images/picture-article-programming.jpg';
 import { MyAlertMessage } from '~/components/surface/dialogs/alert-message';
+import { MyContainer } from '~/features/app/components/container';
 import { MyPageContainer } from '~/features/app/components/page-container';
 import { MyStudyAlert } from '~/features/app/components/study-alert';
-import { MyArticleContainer } from '~/features/article/components/article-container';
 
 import { MyArticleActions } from './components/article-actions';
 import { MyArticleDetail } from './components/article-detail';
+import { MyArticleJumbotron } from './components/article-jumbotron';
 import { useHooks } from './hooks';
 
 type Params = {
@@ -14,29 +17,27 @@ type Params = {
 };
 
 export default function ArticleDetailPage({ params }: { params: Params }) {
-  const { article, findError, findStudyError, isLoading, deleteError, deleteStudyError, isDeleting, handleDelete } =
-    useHooks(params.id);
+  const { article, findError, findStudyError, isLoading } = useHooks(params.id);
 
   return (
     <MyPageContainer>
-      <h1>メモ詳細</h1>
-      <MyArticleContainer>
+      <MyArticleJumbotron
+        heading={article?.title ?? ''}
+        createdAt={article?.createdAt ?? ''}
+        updatedAt={article?.updatedAt ?? ''}
+        image={article ? (article.category === 'プログラミング' ? programmingImage : lifeImage) : undefined}
+        tag={article?.category}
+      />
+      <MyContainer>
         {findError && <MyAlertMessage color="error">{findError.message}</MyAlertMessage>}
-        {deleteError && <MyAlertMessage color="error">{deleteError.message}</MyAlertMessage>}
-        {!article && isLoading && <div>読み込み中...</div>}
+        {isLoading && <div>読み込み中...</div>}
         {article && <MyArticleDetail article={article} />}
-        <MyArticleActions id={params.id} onClickDelete={handleDelete} isDeleting={isDeleting} />
-      </MyArticleContainer>
+        <MyArticleActions />
+      </MyContainer>
       {findStudyError && (
         <MyStudyAlert
           message={findStudyError.message}
           description="API (http://localhost:8000/articles/detail/:id) の開発が完了すると「選択したメモの詳細」が表示されるようになります。"
-        />
-      )}
-      {deleteStudyError && (
-        <MyStudyAlert
-          message={deleteStudyError.message}
-          description="API (http://localhost:8000/articles/delete) の開発が完了すると削除ボタンをクリックした際に「選択したメモの変更内容をデータベースから削除」し、「一覧画面に戻る」ようになります。"
         />
       )}
     </MyPageContainer>

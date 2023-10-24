@@ -2,7 +2,6 @@
 
 import { MyJumbotron } from '~/components/elements/images/jumbotron';
 import { MyAlertMessage } from '~/components/surface/dialogs/alert-message';
-import { MyTabs } from '~/components/surface/navigations/tabs';
 import { MyContainer } from '~/features/app/components/container';
 import { MyPageContainer } from '~/features/app/components/page-container';
 import { MyStudyAlert } from '~/features/app/components/study-alert';
