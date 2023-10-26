@@ -10,7 +10,7 @@ export const useDeleteArticle = () => {
 
   useEffect(() => {
     if (!success) return;
-    router.push('/');
+    router.push('/admin');
   }, [success]);
 
   return { deleteError: error, deleteStudyError: studyError, isDeleting, deleteArticle };

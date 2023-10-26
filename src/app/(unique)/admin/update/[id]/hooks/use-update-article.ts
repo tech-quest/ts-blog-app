@@ -15,7 +15,7 @@ export const useUpdateArticle = (id: string) => {
 
   useEffect(() => {
     if (!success) return;
-    router.push('/');
+    router.push('/admin');
   }, [success]);
 
   return { updateError: error, updateStudyError: studyError, isUpdating, handleSubmit };

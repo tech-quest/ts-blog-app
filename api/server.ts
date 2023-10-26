@@ -153,7 +153,7 @@ app.post('/admin/articles/update', async (req, res) => {
 
 // APIのURL http://localhost:8000/admin/articles/delete
 // 作成が完了したら http://localhost:3000/admin などの削除ボタンをクリックしてみよう
-app.post('/articles/delete', async (req, res) => {
+app.post('/admin/articles/delete', async (req, res) => {
   const { articleId } = req.body;
 
   const id = Number(articleId);
