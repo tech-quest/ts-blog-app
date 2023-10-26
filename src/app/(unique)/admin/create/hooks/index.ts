@@ -14,7 +14,7 @@ export const useHooks = () => {
 
   useEffect(() => {
     if (!success) return;
-    router.push('/');
+    router.push('/admin');
   }, [success]);
 
   return { error, studyError, isCreating, handleSubmit };

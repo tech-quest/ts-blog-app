@@ -20,9 +20,9 @@ type Props = {
   error?: string | null;
 };
 
-export const MyRadioField = ({ label, items, name, value, onChange, error }: Props) => {
+export const MySelectField = ({ label, items, name, value, onChange, error }: Props) => {
   const errorId = `${name}-error`;
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     onChange(event.currentTarget.value);
   };
 
@@ -31,26 +31,24 @@ export const MyRadioField = ({ label, items, name, value, onChange, error }: Pro
       <div className={fieldStyles.label}>
         <label htmlFor={name}>{label}</label>
       </div>
-      <div className={styles.items}>
-        {items.map((item, index) => {
-          const id = `${name}-${index}`;
-          return (
-            <div key={item.value}>
-              <input
-                type="radio"
-                id={id}
-                name={name}
-                value={item.value}
-                onChange={handleChange}
-                className={clsx([styles.input, value === item.value && styles.checked])}
-                checked={value === item.value}
-              />
-              <label htmlFor={id} className={styles.label}>
-                <MyMultilineString value={item.label} />
-              </label>
-            </div>
-          );
-        })}
+      <div className={fieldStyles.field}>
+        <div className={styles.select}>
+          <select
+            id={name}
+            name={name}
+            value={value}
+            onChange={handleChange}
+            className={styles.input}
+            aria-invalid={Boolean(error)}
+            aria-errormessage={error ? errorId : undefined}
+          >
+            {items.map((item) => (
+              <option key={item.value} value={item.value}>
+                {item.label}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
       {error && <MyErrorMessage id={errorId} message={error} />}
     </div>

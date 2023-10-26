@@ -2,17 +2,13 @@ import { useState } from 'react';
 
 import { MyButton } from '~/components/elements/buttons/button';
 import { MyRadioField } from '~/components/elements/forms/radio-field';
+import { MySelectField } from '~/components/elements/forms/select-field';
 import { MyTextField } from '~/components/elements/forms/text-field';
 import { MyTextareaField } from '~/components/elements/forms/textarea-field';
 import { MyPanel } from '~/components/surface/panels/panel';
-import { ArticleCategory, ArticleStatus } from '~/features/article/ui-models/article';
+import { ArticleCategory, ArticleStatus, categoryItems, statusItems } from '~/features/article/ui-models/article';
 
 import styles from './styles.module.css';
-
-const statusItems = [
-  { value: '公開', label: '公開' },
-  { value: '下書き', label: '下書き' },
-];
 
 type Props = {
   isSubmitting: boolean;
@@ -22,8 +18,8 @@ type Props = {
 export const MyCreateArticleForm = ({ isSubmitting, onSubmit }: Props) => {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const [status, setStatus] = useState<ArticleStatus>('公開');
   const [category, setCategory] = useState<ArticleCategory>('プログラミング');
+  const [status, setStatus] = useState<ArticleStatus>('公開');
 
   const handleChangeTitle = (value: string) => {
     setTitle(value);
@@ -31,11 +27,11 @@ export const MyCreateArticleForm = ({ isSubmitting, onSubmit }: Props) => {
   const handleChangeContent = (value: string) => {
     setContent(value);
   };
+  const handleChangeCategory = (value) => {
+    setCategory(value);
+  };
   const handleChangeStatus = (value) => {
     setStatus(value);
-  };
-  const handleChangeCategory = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setCategory(e.target.value as ArticleCategory);
   };
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
@@ -48,12 +44,13 @@ export const MyCreateArticleForm = ({ isSubmitting, onSubmit }: Props) => {
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
         <MyTextField label="タイトル" name="title" value={title} onChange={handleChangeTitle} />
         <MyTextareaField label="内容" name="content" value={content} onChange={handleChangeContent} />
-        <div>
-          <select name="category" value={category} onChange={handleChangeCategory}>
-            <option value="プログラミング">プログラミング</option>
-            <option value="日常">日常</option>
-          </select>
-        </div>
+        <MySelectField
+          items={categoryItems}
+          label="カテゴリー"
+          name="category"
+          value={category}
+          onChange={handleChangeCategory}
+        />
         <MyRadioField
           items={statusItems}
           label="ステータス"

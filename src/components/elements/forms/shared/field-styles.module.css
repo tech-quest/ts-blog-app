@@ -1,17 +1,17 @@
-.field {
+.row {
   margin: 1rem 0;
 }
-.field > *:first-child {
+.row > *:first-child {
   margin-top: 0;
 }
-.field > *:last-child {
+.row > *:last-child {
   margin-bottom: 0;
 }
 .label {
   margin-bottom: 0.5rem;
   font-weight: bold;
 }
-.input {
+.field {
   margin-bottom: 0.5rem;
 }
 .textInput {

@@ -16,11 +16,11 @@ export const MyTextField = ({ label, name, value, onChange, error }: Props) => {
   };
 
   return (
-    <div className={fieldStyles.field}>
+    <div className={fieldStyles.row}>
       <div className={fieldStyles.label}>
         <label htmlFor={name}>{label}</label>
       </div>
-      <div className={fieldStyles.input}>
+      <div className={fieldStyles.field}>
         <input
           type="text"
           id={name}
