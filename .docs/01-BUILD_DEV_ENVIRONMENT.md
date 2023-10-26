@@ -1,7 +1,8 @@
 # 環境構築をしてみよう！
 
 ## アプリ起動後のURL
-- アプリケーション: [https://localhost:3000/](https://localhost:3000/)
+- アプリケーション: [http://localhost:3000/](http://localhost:3000/)
+- API: [http://localhost:8000/](http://localhost:8000/)
 
 ## 環境構築~アプリ起動までの手順
 
