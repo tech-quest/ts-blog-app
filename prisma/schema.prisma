@@ -2,21 +2,22 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-  provider = "prisma-client-js"
+  provider   = "prisma-client-js"
+  engineType = "binary"
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "sqlite"
   url      = env("DATABASE_URL")
 }
 
 // ユーザーの基本情報 (未登録・登録済みに限らず)
 model Article {
   id       Int    @id @default(autoincrement())
-  title    String @db.VarChar(255)
-  content  String @db.Text
-  category String @db.VarChar(20)
-  status   String @db.VarChar(10)
+  title    String
+  content  String
+  category String
+  status   String
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
