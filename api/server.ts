@@ -1,7 +1,6 @@
 import { PrismaClient } from '@prisma/client';
 import express from 'express';
 
-import { articlesDatabase } from './dummy-database/articles';
 import { applyServerSettings } from './settings';
 
 const app = express();
