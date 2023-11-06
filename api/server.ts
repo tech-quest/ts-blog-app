@@ -76,6 +76,38 @@ app.get('/admin/articles/detail/:id', async (req, res) => {
   res.json({ data: article });
 });
 
+// APIのURL http://localhost:8000/admin/articles/create
+// 作成が完了したら http://localhost:3000/admin/create にアクセスして確認してみましょう！
+app.post('/admin/articles/create', async (req, res) => {
+  const { title, content, category, status } = req.body;
+
+  const requiredMessage = '未入力の内容があります';
+
+  if (title === '') {
+    res.status(400).json({ error: { message: requiredMessage } });
+    return;
+  }
+
+  if (content === '') {
+    res.status(400).json({ error: { message: requiredMessage } });
+    return;
+  }
+
+  if (category === '') {
+    res.status(400).json({ error: { message: requiredMessage } });
+    return;
+  }
+
+  if (status === '') {
+    res.status(400).json({ error: { message: requiredMessage } });
+    return;
+  }
+
+  const record = await prisma.article.create({ data: { title, content, category, status } });
+
+  res.json({ data: { id: record.id.toString(10) } });
+});
+
 const formatDateInJa = (date: Date) => {
   const year = date.getFullYear().toString();
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
