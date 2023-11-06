@@ -26,19 +26,19 @@ export default function AdminPage() {
       )}
       <div>
         <MyButton color="secondary" asChild>
-          <Link href="/admin/create">メモを作成する</Link>
+          <Link href="/admin/create">記事を作成する</Link>
         </MyButton>
       </div>
       {fetchStudyError && (
         <MyStudyAlert
           message={fetchStudyError.message}
-          description="API (http://localhost:8000/articles) の開発が完了すると「メモの一覧」が表示されるようになります。"
+          description="API (http://localhost:8000/admin/articles) の開発が完了すると「記事の一覧」が表示されるようになります。"
         />
       )}
       {deleteStudyError && (
         <MyStudyAlert
           message={deleteStudyError.message}
-          description="API (http://localhost:8000/articles/delete) の開発が完了すると削除ボタンをクリックした際に「選択したメモの変更内容をデータベースから削除」できるようになります。"
+          description="API (http://localhost:8000/admin/articles/delete) の開発が完了すると削除ボタンをクリックした際に「選択した記事の変更内容をデータベースから削除」できるようになります。"
         />
       )}
     </MyPageContainer>

@@ -29,7 +29,7 @@ export default function HomePage() {
         {fetchStudyError && (
           <MyStudyAlert
             message={fetchStudyError.message}
-            description="API (http://localhost:8000/articles) の開発が完了すると「メモの一覧」が表示されるようになります。"
+            description="API (http://localhost:8000/articles) の開発が完了すると「記事の一覧」が表示されるようになります。"
           />
         )}
       </MyContainer>

@@ -15,7 +15,7 @@ export default function ArticleCreatePage() {
   const { error, studyError, isCreating, handleSubmit } = useHooks();
   return (
     <MyPageContainer>
-      <h1>新規メモ作成</h1>
+      <h1>新規記事作成</h1>
       <MyAdminArticleContainer>
         {error && <MyAlertMessage color="error">{error.message}</MyAlertMessage>}
         <MyCreateArticleForm isSubmitting={isCreating} onSubmit={handleSubmit} />
@@ -28,7 +28,7 @@ export default function ArticleCreatePage() {
       {studyError && (
         <MyStudyAlert
           message={studyError.message}
-          description="API (http://localhost:8000/articles/create) の開発が完了すると作成ボタンをクリックした際に「新規メモをデータベースに登録」し、「一覧画面に戻る」ようになります。"
+          description="API (http://localhost:8000/admin/articles/create) の開発が完了すると作成ボタンをクリックした際に「新規記事をデータベースに登録」し、「一覧画面に戻る」ようになります。"
         />
       )}
     </MyPageContainer>

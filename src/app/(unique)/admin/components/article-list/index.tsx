@@ -14,7 +14,7 @@ type Props = {
 
 export const MyArticleList = ({ articles, onClickDelete, isDeleting }: Props) => {
   if (!articles.length) {
-    return <div>メモがありません。作成をしてメモを残しましょう！</div>;
+    return <div>記事がありません。作成をして記事を残しましょう！</div>;
   }
 
   return (
