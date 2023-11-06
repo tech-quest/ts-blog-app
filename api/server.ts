@@ -150,6 +150,26 @@ app.post('/admin/articles/update', async (req, res) => {
   }
 });
 
+// APIのURL http://localhost:8000/admin/articles/delete
+// 作成が完了したら http://localhost:3000/admin などの削除ボタンをクリックしてみよう
+app.post('/admin/articles/delete', async (req, res) => {
+  const { articleId } = req.body;
+
+  const id = Number(articleId);
+  if (Number.isNaN(id)) {
+    res.status(400).json({ error: { message: 'ID 形式が不正な形式となっています' } });
+    return;
+  }
+
+  try {
+    const record = await prisma.article.delete({ where: { id } });
+
+    res.json({ data: { id: record.id.toString(10) } });
+  } catch {
+    res.status(500).json({ error: { message: 'データベース操作に失敗しました。' } });
+  }
+});
+
 const formatDateInJa = (date: Date) => {
   const year = date.getFullYear().toString();
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
