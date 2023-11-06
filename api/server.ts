@@ -170,16 +170,6 @@ app.post('/admin/articles/delete', async (req, res) => {
   }
 });
 
-const formatDateInJa = (date: Date) => {
-  const year = date.getFullYear().toString();
-  const month = (date.getMonth() + 1).toString().padStart(2, '0');
-  const day = date.getDate().toString().padStart(2, '0');
-  const hours = date.getHours().toString().padStart(2, '0');
-  const minutes = date.getMinutes().toString().padStart(2, '0');
-
-  return `${year}/${month}/${day} ${hours}:${minutes}`;
-};
-
 // APIのURL http://localhost:8000/articles
 // 作成が完了したら http://localhost:3000 にアクセスして確認してみましょう！
 app.get('/articles', async (req, res) => {
@@ -237,6 +227,16 @@ app.get('/articles/detail/:id', async (req, res) => {
 
   res.json({ data: article });
 });
+
+const formatDateInJa = (date: Date) => {
+  const year = date.getFullYear().toString();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  const hours = date.getHours().toString().padStart(2, '0');
+  const minutes = date.getMinutes().toString().padStart(2, '0');
+
+  return `${year}/${month}/${day} ${hours}:${minutes}`;
+};
 
 // ↑↑↑ バックエンド処理を記述して実際に開発してみましょう！！
 
