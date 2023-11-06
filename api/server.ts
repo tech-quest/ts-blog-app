@@ -29,6 +29,37 @@ app.get('/admin/articles', async (req, res) => {
   res.json({ data: articles });
 });
 
+// APIのURL http://localhost:8000/admin/articles/detail/1
+// 存在しないIDを指定した場合 http://localhost:8000/admin/articles/detail/a -> 404 Not Found
+// 作成が完了したら http://localhost:3000/admin/update/1 にアクセスして確認してみましょう！
+app.get('/admin/articles/detail/:id', async (req, res) => {
+  const id = Number(req.params.id);
+  if (Number.isNaN(id)) {
+    res.status(404).json({ error: { message: 'ID 形式が不正な形式となっています' } });
+    return;
+  }
+
+  const record = await articlesDatabase.find((article) => {
+    return article.id === id;
+  });
+  if (!record) {
+    res.status(404).json({ error: { message: '記事が見つかりませんでした' } });
+    return;
+  }
+
+  const article = {
+    id: record.id,
+    title: record.title,
+    content: record.content,
+    category: record.category,
+    status: record.status,
+    createdAt: formatDateInJa(record.createdAt),
+    updatedAt: formatDateInJa(record.updatedAt),
+  };
+
+  res.json({ data: article });
+});
+
 const formatDateInJa = (date: Date) => {
   const year = date.getFullYear().toString();
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
