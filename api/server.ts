@@ -1,3 +1,4 @@
+import { PrismaClient } from '@prisma/client';
 import express from 'express';
 
 import { articlesDatabase } from './dummy-database/articles';
@@ -11,10 +12,27 @@ applyServerSettings(app);
 
 // ↓↓↓ バックエンド処理を記述して実際に開発してみましょう！！
 
+declare global {
+  // eslint-disable-next-line no-var
+  var __db__: PrismaClient | undefined;
+}
+
+const initPrisma = () => {
+  if (process.env.NODE_ENV === 'production') return new PrismaClient();
+
+  const db = (global.__db__ = global.__db__ ?? new PrismaClient());
+  db.$connect();
+  return db;
+};
+
+const prisma = initPrisma();
+
 // APIのURL http://localhost:8000/admin/articles
 // 作成が完了したら http://localhost:3000/admin にアクセスして確認してみましょう！
 app.get('/admin/articles', async (req, res) => {
-  const articles = articlesDatabase.map((record) => {
+  const records = await prisma.article.findMany();
+
+  const articles = records.map((record) => {
     return {
       id: record.id,
       title: record.title,
@@ -39,9 +57,7 @@ app.get('/admin/articles/detail/:id', async (req, res) => {
     return;
   }
 
-  const record = await articlesDatabase.find((article) => {
-    return article.id === id;
-  });
+  const record = await prisma.article.findUnique({ where: { id } });
   if (!record) {
     res.status(404).json({ error: { message: '記事が見つかりませんでした' } });
     return;
