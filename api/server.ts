@@ -180,6 +180,64 @@ const formatDateInJa = (date: Date) => {
   return `${year}/${month}/${day} ${hours}:${minutes}`;
 };
 
+// APIのURL http://localhost:8000/articles
+// 作成が完了したら http://localhost:3000 にアクセスして確認してみましょう！
+app.get('/articles', async (req, res) => {
+  const records = await prisma.article.findMany();
+
+  const articles = records.map((record) => {
+    return {
+      id: record.id,
+      title: record.title,
+      content: record.content,
+      category: record.category,
+      status: record.status,
+      createdAt: formatDateInJa(record.createdAt),
+      updatedAt: formatDateInJa(record.updatedAt),
+    };
+  });
+
+  // Memo: ユーザーには公開されている記事のみを返す
+  const published = articles.filter((article) => article.status === '公開');
+
+  res.json({ data: published });
+});
+
+// APIのURL http://localhost:8000/articles/detail/1
+// 存在しないIDを指定した場合 http://localhost:8000/articles/detail/a -> 404 Not Found
+// 作成が完了したら http://localhost:3000/detail/1 にアクセスして確認してみましょう！
+app.get('/articles/detail/:id', async (req, res) => {
+  const id = Number(req.params.id);
+  if (Number.isNaN(id)) {
+    res.status(404).json({ error: { message: 'ID 形式が不正な形式となっています' } });
+    return;
+  }
+
+  const record = await prisma.article.findUnique({ where: { id } });
+  if (record === null) {
+    res.status(404).json({ error: { message: '記事が見つかりませんでした' } });
+    return;
+  }
+
+  // Memo: 公開されていない記事は 404 Not Found 扱いにする
+  if (record.status !== '公開') {
+    res.status(404).json({ error: { message: '記事が見つかりませんでした' } });
+    return;
+  }
+
+  const article = {
+    id: record.id,
+    title: record.title,
+    content: record.content,
+    category: record.category,
+    status: record.status,
+    createdAt: formatDateInJa(record.createdAt),
+    updatedAt: formatDateInJa(record.updatedAt),
+  };
+
+  res.json({ data: article });
+});
+
 // ↑↑↑ バックエンド処理を記述して実際に開発してみましょう！！
 
 app.listen(port, () => {
