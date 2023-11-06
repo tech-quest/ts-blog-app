@@ -59,7 +59,7 @@ app.get('/admin/articles/detail/:id', async (req, res) => {
   }
 
   const record = await prisma.article.findUnique({ where: { id } });
-  if (record === null) {
+  if (!record) {
     res.status(404).json({ error: { message: '記事が見つかりませんでした' } });
     return;
   }
