@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { Article, PrismaClient } from '@prisma/client';
 import express from 'express';
 
 import { articlesDatabase } from './dummy-database/articles';
@@ -32,7 +32,9 @@ const prisma = initPrisma();
 app.get('/admin/articles', async (req, res) => {
   const records = await prisma.article.findMany();
 
-  const articles = records.map((record) => {
+  const sorted = sortArticlesByNewestFirst(records);
+
+  const articles = sorted.map((record) => {
     return {
       id: record.id,
       title: record.title,
@@ -175,7 +177,9 @@ app.post('/admin/articles/delete', async (req, res) => {
 app.get('/articles', async (req, res) => {
   const records = await prisma.article.findMany();
 
-  const articles = records.map((record) => {
+  const sorted = sortArticlesByNewestFirst(records);
+
+  const articles = sorted.map((record) => {
     return {
       id: record.id,
       title: record.title,
@@ -228,6 +232,12 @@ app.get('/articles/detail/:id', async (req, res) => {
   res.json({ data: article });
 });
 
+const sortArticlesByNewestFirst = (articles: Article[]) => {
+  const sorted = articles.sort((a, b) => {
+    return b.createdAt.getTime() - a.createdAt.getTime();
+  });
+  return sorted;
+};
 const formatDateInJa = (date: Date) => {
   const year = date.getFullYear().toString();
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
