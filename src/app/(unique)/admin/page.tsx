@@ -38,7 +38,7 @@ export default function AdminPage() {
       {deleteStudyError && (
         <MyStudyAlert
           message={deleteStudyError.message}
-          description="API (http://localhost:8000/admin/articles/delete) の開発が完了すると削除ボタンをクリックした際に「選択した記事の変更内容をデータベースから削除」できるようになります。"
+          description="API (http://localhost:8000/admin/articles/:id) の開発が完了すると削除ボタンをクリックした際に「選択した記事の変更内容をデータベースから削除」できるようになります。"
         />
       )}
     </MyPageContainer>

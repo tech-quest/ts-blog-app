@@ -28,7 +28,7 @@ export default function ArticleCreatePage() {
       {studyError && (
         <MyStudyAlert
           message={studyError.message}
-          description="API (http://localhost:8000/admin/articles/create) の開発が完了すると作成ボタンをクリックした際に「新規記事をデータベースに登録」し、「一覧画面に戻る」ようになります。"
+          description="API (http://localhost:8000 /admin/articles) の開発が完了すると作成ボタンをクリックした際に「新規記事をデータベースに登録」し、「一覧画面に戻る」ようになります。"
         />
       )}
     </MyPageContainer>

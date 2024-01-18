@@ -51,7 +51,7 @@ app.get('/admin/articles', async (req, res) => {
 // APIのURL http://localhost:8000/admin/articles/detail/1
 // 存在しないIDを指定した場合 http://localhost:8000/admin/articles/detail/a -> 404 Not Found
 // 作成が完了したら http://localhost:3000/admin/update/1 にアクセスして確認してみましょう！
-app.get('/admin/articles/detail/:id', async (req, res) => {
+app.post('/admin/articles/:id', async (req, res) => {
   const id = Number(req.params.id);
   if (Number.isNaN(id)) {
     res.status(404).json({ error: { message: 'ID 形式が不正な形式となっています' } });
@@ -77,9 +77,9 @@ app.get('/admin/articles/detail/:id', async (req, res) => {
   res.json({ data: article });
 });
 
-// APIのURL http://localhost:8000/admin/articles/create
+// APIのURL http://localhost:8000 /admin/articles
 // 作成が完了したら http://localhost:3000/admin/create にアクセスして確認してみましょう！
-app.post('/admin/articles/create', async (req, res) => {
+app.post(' /admin/articles', async (req, res) => {
   const { title, content, category, status } = req.body;
 
   const requiredMessage = '未入力の内容があります';
@@ -109,9 +109,9 @@ app.post('/admin/articles/create', async (req, res) => {
   res.json({ data: { id: record.id.toString(10) } });
 });
 
-// APIのURL http://localhost:8000/admin/articles/update
+// APIのURL http://localhost:8000/admin/articles/:id
 // 作成が完了したら http://localhost:3000/admin/update/1 にアクセスして確認してみましょう！
-app.post('/admin/articles/update', async (req, res) => {
+app.put('/admin/articles/:id', async (req, res) => {
   const { articleId, title, content, category, status } = req.body;
 
   const id = Number(articleId);
@@ -151,9 +151,9 @@ app.post('/admin/articles/update', async (req, res) => {
   }
 });
 
-// APIのURL http://localhost:8000/admin/articles/delete
+// APIのURL http://localhost:8000/admin/articles/:id
 // 作成が完了したら http://localhost:3000/admin などの削除ボタンをクリックしてみよう
-app.post('/admin/articles/delete', async (req, res) => {
+app.delete('/admin/articles/:id', async (req, res) => {
   const { articleId } = req.body;
 
   const id = Number(articleId);
@@ -199,7 +199,7 @@ app.get('/articles', async (req, res) => {
 // APIのURL http://localhost:8000/articles/detail/1
 // 存在しないIDを指定した場合 http://localhost:8000/articles/detail/a -> 404 Not Found
 // 作成が完了したら http://localhost:3000/detail/1 にアクセスして確認してみましょう！
-app.get('/articles/detail/:id', async (req, res) => {
+app.get(' /articles/:id', async (req, res) => {
   const id = Number(req.params.id);
   if (Number.isNaN(id)) {
     res.status(404).json({ error: { message: 'ID 形式が不正な形式となっています' } });
