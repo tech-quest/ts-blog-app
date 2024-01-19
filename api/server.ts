@@ -77,9 +77,9 @@ app.post('/admin/articles/:id', async (req, res) => {
   res.json({ data: article });
 });
 
-// APIのURL http://localhost:8000 /admin/articles
+// APIのURL http://localhost:8000/admin/articles
 // 作成が完了したら http://localhost:3000/admin/create にアクセスして確認してみましょう！
-app.post(' /admin/articles', async (req, res) => {
+app.post('/admin/articles', async (req, res) => {
   const { title, content, category, status } = req.body;
 
   const requiredMessage = '未入力の内容があります';

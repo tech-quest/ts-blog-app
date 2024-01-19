@@ -8,7 +8,7 @@ export const useCreateArticleApi = () => {
   const [success, setSuccess] = useState<boolean | null>(null);
 
   const { data, error, studyError, isLoading, mutate } = usePostFetch<ApiResponseData>(
-    'http://localhost:8000 /admin/articles',
+    'http://localhost:8000/admin/articles',
   );
 
   useEffect(() => {
