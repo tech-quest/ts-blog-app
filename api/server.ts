@@ -48,10 +48,10 @@ app.get('/admin/articles', async (req, res) => {
   res.json({ data: articles });
 });
 
-// APIのURL http://localhost:8000/admin/articles/detail/1
-// 存在しないIDを指定した場合 http://localhost:8000/admin/articles/detail/a -> 404 Not Found
+// APIのURL http://localhost:8000/admin/articles/1
+// 存在しないIDを指定した場合 http://localhost:8000/admin/articles/a -> 404 Not Found
 // 作成が完了したら http://localhost:3000/admin/update/1 にアクセスして確認してみましょう！
-app.post('/admin/articles/:id', async (req, res) => {
+app.get('/admin/articles/:id', async (req, res) => {
   const id = Number(req.params.id);
   if (Number.isNaN(id)) {
     res.status(404).json({ error: { message: 'ID 形式が不正な形式となっています' } });
@@ -196,10 +196,10 @@ app.get('/articles', async (req, res) => {
   res.json({ data: published });
 });
 
-// APIのURL http://localhost:8000/articles/detail/1
-// 存在しないIDを指定した場合 http://localhost:8000/articles/detail/a -> 404 Not Found
+// APIのURL http://localhost:8000/articles/1
+// 存在しないIDを指定した場合 http://localhost:8000/articles/a -> 404 Not Found
 // 作成が完了したら http://localhost:3000/detail/1 にアクセスして確認してみましょう！
-app.get(' /articles/:id', async (req, res) => {
+app.get('/articles/:id', async (req, res) => {
   const id = Number(req.params.id);
   if (Number.isNaN(id)) {
     res.status(404).json({ error: { message: 'ID 形式が不正な形式となっています' } });

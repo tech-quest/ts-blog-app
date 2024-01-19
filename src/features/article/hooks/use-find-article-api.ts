@@ -17,10 +17,7 @@ export const useFindArticleApi = (id: string, isAdmin?: boolean) => {
   const [article, setArticle] = useState<ArticleDetailUiModel | null>(null);
 
   const baseUrl = isAdmin ? 'http://localhost:8000/admin' : 'http://localhost:8000';
-
-  const { data, error, studyError, isLoading, query } = useGetFetch<ApiResponseData>(
-    `${baseUrl}/articles/detail/${id}`,
-  );
+  const { data, error, studyError, isLoading, query } = useGetFetch<ApiResponseData>(`${baseUrl}/articles/${id}`);
 
   useEffect(() => {
     if (!data) return;

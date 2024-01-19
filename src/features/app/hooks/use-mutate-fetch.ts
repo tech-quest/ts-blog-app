@@ -5,13 +5,7 @@ type ErrorResponse = {
   message: string;
 };
 
-const configs: RequestInit = {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  mode: 'cors',
-};
-
-export const usePostFetch = <T>(url: string) => {
+export const useMutateFetch = <T>(url: string, method: string) => {
   const [data, setData] = useState<T | null>();
   const [error, setError] = useState<ErrorResponse | null>();
   const [studyError, setStudyError] = useState<ErrorResponse | null>();
@@ -46,6 +40,12 @@ export const usePostFetch = <T>(url: string) => {
     const body = JSON.stringify(values);
 
     setStatesWhenStartFetching();
+
+    const configs: RequestInit = {
+      method: method,
+      headers: { 'Content-Type': 'application/json' },
+      mode: 'cors',
+    };
 
     return await fetch(url, { ...configs, body })
       .then(async (res) => {
