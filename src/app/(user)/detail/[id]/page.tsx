@@ -37,7 +37,7 @@ export default function ArticleDetailPage({ params }: { params: Params }) {
       {findStudyError && (
         <MyStudyAlert
           message={findStudyError.message}
-          description="API (http://localhost:8000/articles/detail/:id) の開発が完了すると「選択した記事の詳細」が表示されるようになります。"
+          description="API (http://localhost:8000/articles/:id) の開発が完了すると「選択した記事の詳細」が表示されるようになります。"
         />
       )}
     </MyPageContainer>

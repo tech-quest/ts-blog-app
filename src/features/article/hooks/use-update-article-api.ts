@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 
-import { usePostFetch } from '~/features/app/hooks/use-post-fetch';
+import { useMutateFetch } from '~/features/app/hooks/use-mutate-fetch';
 
 type ApiResponseData = { id: string };
 
 export const useUpdateArticleApi = () => {
   const [success, setSuccess] = useState<boolean | null>(null);
 
-  const { data, error, studyError, isLoading, mutate } = usePostFetch<ApiResponseData>(
-    `http://localhost:8000/admin/articles/update`,
+  const { data, error, studyError, isLoading, mutate } = useMutateFetch<ApiResponseData>(
+    `http://localhost:8000/admin/articles/:id`,
+    'put',
   );
 
   useEffect(() => {
