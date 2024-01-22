@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { useMutateFetch } from '~/features/app/hooks/use-mutate-fetch';
 
-type ApiResponseData = { id: string; method: string };
+type ApiResponseData = { id: string };
 
 export const useCreateArticleApi = () => {
   const [success, setSuccess] = useState<boolean | null>(null);
