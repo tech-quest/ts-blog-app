@@ -112,9 +112,9 @@ app.post('/admin/articles', async (req, res) => {
 // APIのURL http://localhost:8000/admin/articles/:id
 // 作成が完了したら http://localhost:3000/admin/update/1 にアクセスして確認してみましょう！
 app.put('/admin/articles/:id', async (req, res) => {
-  const { articleId, title, content, category, status } = req.body;
+  const { title, content, category, status } = req.body;
 
-  const id = Number(articleId);
+  const id = Number(req.params.id);
   if (Number.isNaN(id)) {
     res.status(400).json({ error: { message: 'ID 形式が不正な形式となっています' } });
     return;
@@ -154,9 +154,7 @@ app.put('/admin/articles/:id', async (req, res) => {
 // APIのURL http://localhost:8000/admin/articles/:id
 // 作成が完了したら http://localhost:3000/admin などの削除ボタンをクリックしてみよう
 app.delete('/admin/articles/:id', async (req, res) => {
-  const { articleId } = req.body;
-
-  const id = Number(articleId);
+  const id = Number(req.params.id);
   if (Number.isNaN(id)) {
     res.status(400).json({ error: { message: 'ID 形式が不正な形式となっています' } });
     return;
