@@ -50,3 +50,17 @@ nodeuser@cd649f7d8d99:/var/www$ npm run dev
 ### 5. ブラウザでアプリケーションにアクセスする
 
 次のURL http://localhost:3000 を Chromeなどのブラウザに入力し、表示させてください。
+
+## データベースの確認方法
+
+### 1. Prismaの画面を起動
+
+以下コマンドを実行する
+
+```
+nodeuser@cd649f7d8d99:/var/www$ npx prisma studio
+```
+
+### 2. ブラウザでアクセスする
+
+次のURL http://localhost:5555/ を Chromeなどのブラウザに入力し、表示させてください。
